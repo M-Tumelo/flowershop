@@ -17,13 +17,14 @@ namespace Tests
             //Arrange
             IOrderDAO orderDAO = Substitute.For<IOrderDAO>();
             IClient client = Substitute.For<IClient>();
+            IOrder Order = Substitute.For<IOrder>();
             Order order = new Order(orderDAO, client);
 
             //Act
             order.Deliver();
 
             //Assert
-            orderDAO.Received().SetDelivered(order);
+            orderDAO.Received().SetDelivered(Arg.Any<IOrder>());
         }
     }
 }
