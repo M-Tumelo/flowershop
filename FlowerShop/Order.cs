@@ -10,22 +10,32 @@ namespace FlowerShop
         private bool isDelivered = false;
         public int Id { get; }
         private IOrderDAO Dao;
-
         // should apply a 20% mark-up to each flower.
-        public double Price {
-            get {
+        public double Price
+        {
+            get
+            {
+                double price = 0;
+                for (int i = 0; i < flowers.Count; i++)
+                {
+                    price += flowers[i].Cost+(flowers[i].Cost * 0.20);
+                }
+                return price;
+            }
+        }
+
+        public double Profit
+        {
+            get
+            {
                 return 0;
             }
         }
 
-        public double Profit {
-            get {
-                return 0;
-            }
-        }
-
-        public IReadOnlyList<IFlower> Ordered {
-            get {
+        public IReadOnlyList<IFlower> Ordered
+        {
+            get
+            {
                 return flowers.AsReadOnly();
             }
         }
@@ -49,12 +59,12 @@ namespace FlowerShop
 
         public void AddFlowers(IFlower flower, int n)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void Deliver()
         {
-            Order order = new Order(this.Dao, this.Client,true);
+            Order order = new Order(this.Dao, this.Client, true);
             Dao.SetDelivered(order);
         }
     }
